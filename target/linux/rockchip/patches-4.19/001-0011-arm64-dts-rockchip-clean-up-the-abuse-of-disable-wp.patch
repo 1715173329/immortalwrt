@@ -1,0 +1,103 @@
+From 79164c99db284d07aa4e84e57b469d225609799c Mon Sep 17 00:00:00 2001
+From: Shawn Lin <shawn.lin@rock-chips.com>
+Date: Tue, 22 Jan 2019 16:35:46 +0800
+Subject: arm64: dts: rockchip: clean up the abuse of disable-wp
+
+The mmc.txt didn't explicitly say disable-wp is for SD card slot
+only, but that is what it was designed for in the first place.
+
+Remove all disable-wp from emmc or sdio controller.
+
+Signed-off-by: Shawn Lin <shawn.lin@rock-chips.com>
+Signed-off-by: Heiko Stuebner <heiko@sntech.de>
+---
+ arch/arm64/boot/dts/rockchip/rk3368-evb.dtsi               | 1 -
+ arch/arm64/boot/dts/rockchip/rk3368-geekbox.dts            | 1 -
+ arch/arm64/boot/dts/rockchip/rk3368-lion.dtsi              | 1 -
+ arch/arm64/boot/dts/rockchip/rk3368-orion-r68-meta.dts     | 1 -
+ arch/arm64/boot/dts/rockchip/rk3368-px5-evb.dts            | 1 -
+ arch/arm64/boot/dts/rockchip/rk3368-r88.dts                | 1 -
+ arch/arm64/boot/dts/rockchip/rk3399-nanopi4.dtsi           | 1 -
+ arch/arm64/boot/dts/rockchip/rk3399-sapphire-excavator.dts | 1 -
+ 8 files changed, 8 deletions(-)
+
+--- a/arch/arm64/boot/dts/rockchip/rk3368-evb.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3368-evb.dtsi
+@@ -116,7 +116,6 @@
+ &emmc {
+ 	bus-width = <8>;
+ 	cap-mmc-highspeed;
+-	disable-wp;
+ 	mmc-pwrseq = <&emmc_pwrseq>;
+ 	non-removable;
+ 	pinctrl-names = "default";
+--- a/arch/arm64/boot/dts/rockchip/rk3368-geekbox.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3368-geekbox.dts
+@@ -78,7 +78,6 @@
+ 	bus-width = <8>;
+ 	cap-mmc-highspeed;
+ 	clock-frequency = <150000000>;
+-	disable-wp;
+ 	non-removable;
+ 	vmmc-supply = <&vcc_io>;
+ 	vqmmc-supply = <&vcc18_flash>;
+--- a/arch/arm64/boot/dts/rockchip/rk3368-lion.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3368-lion.dtsi
+@@ -139,7 +139,6 @@
+ &emmc {
+ 	bus-width = <8>;
+ 	clock-frequency = <150000000>;
+-	disable-wp;
+ 	mmc-hs200-1_8v;
+ 	non-removable;
+ 	vmmc-supply = <&vcc33_io>;
+--- a/arch/arm64/boot/dts/rockchip/rk3368-orion-r68-meta.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3368-orion-r68-meta.dts
+@@ -161,7 +161,6 @@
+ &emmc {
+ 	bus-width = <8>;
+ 	cap-mmc-highspeed;
+-	disable-wp;
+ 	mmc-pwrseq = <&emmc_pwrseq>;
+ 	mmc-hs200-1_2v;
+ 	mmc-hs200-1_8v;
+--- a/arch/arm64/boot/dts/rockchip/rk3368-px5-evb.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3368-px5-evb.dts
+@@ -48,7 +48,6 @@
+ 	bus-width = <8>;
+ 	cap-mmc-highspeed;
+ 	clock-frequency = <150000000>;
+-	disable-wp;
+ 	mmc-hs200-1_8v;
+ 	no-sdio;
+ 	no-sd;
+--- a/arch/arm64/boot/dts/rockchip/rk3368-r88.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3368-r88.dts
+@@ -149,7 +149,6 @@
+ &emmc {
+ 	bus-width = <8>;
+ 	cap-mmc-highspeed;
+-	disable-wp;
+ 	mmc-pwrseq = <&emmc_pwrseq>;
+ 	non-removable;
+ 	pinctrl-names = "default";
+--- a/arch/arm64/boot/dts/rockchip/rk3399-nanopi4.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3399-nanopi4.dtsi
+@@ -553,7 +553,6 @@
+ 	bus-width = <4>;
+ 	cap-sd-highspeed;
+ 	cap-sdio-irq;
+-	disable-wp;
+ 	keep-power-in-suspend;
+ 	mmc-pwrseq = <&sdio_pwrseq>;
+ 	non-removable;
+--- a/arch/arm64/boot/dts/rockchip/rk3399-sapphire-excavator.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3399-sapphire-excavator.dts
+@@ -183,7 +183,6 @@
+ 	cap-sd-highspeed;
+ 	cap-sdio-irq;
+ 	clock-frequency = <50000000>;
+-	disable-wp;
+ 	keep-power-in-suspend;
+ 	max-frequency = <50000000>;
+ 	mmc-pwrseq = <&sdio_pwrseq>;

@@ -1,0 +1,75 @@
+From 97df3aa76b4a384e29668f374a8b1034a31aa215 Mon Sep 17 00:00:00 2001
+From: Marc Zyngier <marc.zyngier@arm.com>
+Date: Sat, 2 Mar 2019 13:10:30 +0000
+Subject: arm64: dts: rockchip: Add capacity-dmips-mhz attributes to rk3399
+
+The RK3399 has the interesting property to be a so called "big-little"
+system, where not all the CPUs are equal (the A53s are much weaker
+than the A72s).
+
+So far, we're not telling the OS that there is such a difference in
+processing capacity, and Linux assumes that they are equal. Too bad.
+
+Let's tell the OS about this by using the capacity-dmips-mhz
+property. The values used here are those used on the Juno platform,
+which is quite similar. This leads to the scheduler knowing that
+it can pack more tasks on the A72s, and leads to a better interactive
+experience.
+
+Tested-by: Robin Murphy <robin.murphy@arm.com>
+Signed-off-by: Marc Zyngier <marc.zyngier@arm.com>
+Signed-off-by: Heiko Stuebner <heiko@sntech.de>
+---
+ arch/arm64/boot/dts/rockchip/rk3399.dtsi | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+--- a/arch/arm64/boot/dts/rockchip/rk3399.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3399.dtsi
+@@ -74,6 +74,7 @@
+ 			compatible = "arm,cortex-a53", "arm,armv8";
+ 			reg = <0x0 0x0>;
+ 			enable-method = "psci";
++			capacity-dmips-mhz = <485>;
+ 			clocks = <&cru ARMCLKL>;
+ 			#cooling-cells = <2>; /* min followed by max */
+ 			dynamic-power-coefficient = <100>;
+@@ -85,6 +86,7 @@
+ 			compatible = "arm,cortex-a53", "arm,armv8";
+ 			reg = <0x0 0x1>;
+ 			enable-method = "psci";
++			capacity-dmips-mhz = <485>;
+ 			clocks = <&cru ARMCLKL>;
+ 			#cooling-cells = <2>; /* min followed by max */
+ 			dynamic-power-coefficient = <100>;
+@@ -96,6 +98,7 @@
+ 			compatible = "arm,cortex-a53", "arm,armv8";
+ 			reg = <0x0 0x2>;
+ 			enable-method = "psci";
++			capacity-dmips-mhz = <485>;
+ 			clocks = <&cru ARMCLKL>;
+ 			#cooling-cells = <2>; /* min followed by max */
+ 			dynamic-power-coefficient = <100>;
+@@ -107,6 +110,7 @@
+ 			compatible = "arm,cortex-a53", "arm,armv8";
+ 			reg = <0x0 0x3>;
+ 			enable-method = "psci";
++			capacity-dmips-mhz = <485>;
+ 			clocks = <&cru ARMCLKL>;
+ 			#cooling-cells = <2>; /* min followed by max */
+ 			dynamic-power-coefficient = <100>;
+@@ -118,6 +122,7 @@
+ 			compatible = "arm,cortex-a72", "arm,armv8";
+ 			reg = <0x0 0x100>;
+ 			enable-method = "psci";
++			capacity-dmips-mhz = <1024>;
+ 			clocks = <&cru ARMCLKB>;
+ 			#cooling-cells = <2>; /* min followed by max */
+ 			dynamic-power-coefficient = <436>;
+@@ -129,6 +134,7 @@
+ 			compatible = "arm,cortex-a72", "arm,armv8";
+ 			reg = <0x0 0x101>;
+ 			enable-method = "psci";
++			capacity-dmips-mhz = <1024>;
+ 			clocks = <&cru ARMCLKB>;
+ 			#cooling-cells = <2>; /* min followed by max */
+ 			dynamic-power-coefficient = <436>;

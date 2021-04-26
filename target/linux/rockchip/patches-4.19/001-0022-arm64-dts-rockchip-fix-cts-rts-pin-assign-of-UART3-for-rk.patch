@@ -1,0 +1,36 @@
+From 40a0dd4253c03e7ec21dd38f25901486d34b01c7 Mon Sep 17 00:00:00 2001
+From: Katsuhiro Suzuki <katsuhiro@katsuster.net>
+Date: Sun, 7 Apr 2019 00:35:57 +0900
+Subject: arm64: dts: rockchip: fix cts, rts pin assign of UART3 for rk3399
+
+This patch fixes pin assign of cts and rts signal of UART3.
+
+Currently GPIO3_C2 and C3 pins are assigned but TRM says that
+GPIO3_C0 and C1 are correct.
+
+Refer:
+  RK3399 TRM v1.4 - Table 19-1 UART Interface Description
+
+Signed-off-by: Katsuhiro Suzuki <katsuhiro@katsuster.net>
+Signed-off-by: Heiko Stuebner <heiko@sntech.de>
+---
+ arch/arm64/boot/dts/rockchip/rk3399.dtsi | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+--- a/arch/arm64/boot/dts/rockchip/rk3399.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3399.dtsi
+@@ -2530,12 +2530,12 @@
+ 
+ 			uart3_cts: uart3-cts {
+ 				rockchip,pins =
+-					<3 18 RK_FUNC_2 &pcfg_pull_none>;
++					<3 16 RK_FUNC_2 &pcfg_pull_none>;
+ 			};
+ 
+ 			uart3_rts: uart3-rts {
+ 				rockchip,pins =
+-					<3 19 RK_FUNC_2 &pcfg_pull_none>;
++					<3 17 RK_FUNC_2 &pcfg_pull_none>;
+ 			};
+ 		};
+ 

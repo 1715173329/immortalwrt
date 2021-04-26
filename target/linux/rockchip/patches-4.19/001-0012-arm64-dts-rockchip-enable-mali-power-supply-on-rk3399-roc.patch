@@ -1,0 +1,30 @@
+From 2670712c83db0b9c92251b450ec5f81222b80935 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Andrius=20=C5=A0tikonas?= <andrius@stikonas.eu>
+Date: Fri, 1 Feb 2019 22:55:06 +0000
+Subject: arm64: dts: rockchip: enable mali power supply on rk3399-rockpro64
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Enable the gpu node and add the supplying regulator
+
+Signed-off-by: Andrius Štikonas <andrius@stikonas.eu>
+Signed-off-by: Heiko Stuebner <heiko@sntech.de>
+---
+ arch/arm64/boot/dts/rockchip/rk3399-rockpro64.dts | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+--- a/arch/arm64/boot/dts/rockchip/rk3399-rockpro64.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3399-rockpro64.dts
+@@ -212,6 +212,11 @@
+ 	status = "okay";
+ };
+ 
++&gpu {
++	mali-supply = <&vdd_gpu>;
++	status = "okay";
++};
++
+ &i2c0 {
+ 	clock-frequency = <400000>;
+ 	i2c-scl-rising-time-ns = <168>;

@@ -1,0 +1,57 @@
+From 1a6e741177d0fb70993d605305b09f9cb3b54414 Mon Sep 17 00:00:00 2001
+From: Robin Murphy <robin.murphy@arm.com>
+Date: Mon, 14 Jan 2019 12:05:31 +0000
+Subject: arm64: dts: rockchip: Add DT for NanoPi M4
+
+There are a number of subtle differences between the nanopi4 variants,
+and where they disagree, the common DTSI currently follows the details
+of NanoPi M4. In order to improve matters even more, let's add a
+separate DTS for the M4 to which we can start splitting things out
+appropriately. The third variant, NanoPi NEO4, is a lot closer to the M4
+than either is to the larger T4, so arguably could get away with just
+sharing the M4 DT for now (plus I have neither of the smaller boards to
+actually test with).
+
+CC: Rob Herring <robh+dt@kernel.org>
+CC: Mark Rutland <mark.rutland@arm.com>
+Signed-off-by: Robin Murphy <robin.murphy@arm.com>
+Reviewed-by: Rob Herring <robh@kernel.org>
+Signed-off-by: Heiko Stuebner <heiko@sntech.de>
+---
+ Documentation/devicetree/bindings/arm/rockchip.yaml |  6 ++++--
+ arch/arm64/boot/dts/rockchip/Makefile               |  1 +
+ arch/arm64/boot/dts/rockchip/rk3399-nanopi-m4.dts   | 18 ++++++++++++++++++
+ 3 files changed, 23 insertions(+), 2 deletions(-)
+ create mode 100644 arch/arm64/boot/dts/rockchip/rk3399-nanopi-m4.dts
+
+--- a/arch/arm64/boot/dts/rockchip/Makefile
++++ b/arch/arm64/boot/dts/rockchip/Makefile
+@@ -14,6 +14,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3399-fi
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3399-gru-bob.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3399-gru-kevin.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3399-nanopc-t4.dtb
++dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3399-nanopi-m4.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3399-puma-haikou.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3399-rock-pi-4.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3399-rockpro64.dtb
+--- /dev/null
++++ b/arch/arm64/boot/dts/rockchip/rk3399-nanopi-m4.dts
+@@ -0,0 +1,18 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * FriendlyElec NanoPi M4 board device tree source
++ *
++ * Copyright (c) 2018 FriendlyElec Computer Tech. Co., Ltd.
++ * (http://www.friendlyarm.com)
++ *
++ * Copyright (c) 2018 Collabora Ltd.
++ * Copyright (c) 2019 Arm Ltd.
++ */
++
++/dts-v1/;
++#include "rk3399-nanopi4.dtsi"
++
++/ {
++	model = "FriendlyElec NanoPi M4";
++	compatible = "friendlyarm,nanopi-m4", "rockchip,rk3399";
++};

@@ -1,0 +1,61 @@
+From b0fe0f47be46096cb0edf38d015c6b0a4472c7ae Mon Sep 17 00:00:00 2001
+From: Emil Renner Berthing <kernel@esmil.dk>
+Date: Wed, 10 Oct 2018 11:00:34 +0200
+Subject: arm64: dts: rockchip: add rk3399 SPI DMAs
+
+Add spi dma channels as specified by the rk3399 TRM.
+
+Signed-off-by: Emil Renner Berthing <kernel@esmil.dk>
+Tested-by: Enric Balletbo i Serra <enric.balletbo@collabora.com>
+Signed-off-by: Heiko Stuebner <heiko@sntech.de>
+---
+ arch/arm64/boot/dts/rockchip/rk3399.dtsi | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+--- a/arch/arm64/boot/dts/rockchip/rk3399.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3399.dtsi
+@@ -685,6 +685,8 @@
+ 		clocks = <&cru SCLK_SPI0>, <&cru PCLK_SPI0>;
+ 		clock-names = "spiclk", "apb_pclk";
+ 		interrupts = <GIC_SPI 68 IRQ_TYPE_LEVEL_HIGH 0>;
++		dmas = <&dmac_peri 10>, <&dmac_peri 11>;
++		dma-names = "tx", "rx";
+ 		pinctrl-names = "default";
+ 		pinctrl-0 = <&spi0_clk &spi0_tx &spi0_rx &spi0_cs0>;
+ 		#address-cells = <1>;
+@@ -698,6 +700,8 @@
+ 		clocks = <&cru SCLK_SPI1>, <&cru PCLK_SPI1>;
+ 		clock-names = "spiclk", "apb_pclk";
+ 		interrupts = <GIC_SPI 53 IRQ_TYPE_LEVEL_HIGH 0>;
++		dmas = <&dmac_peri 12>, <&dmac_peri 13>;
++		dma-names = "tx", "rx";
+ 		pinctrl-names = "default";
+ 		pinctrl-0 = <&spi1_clk &spi1_tx &spi1_rx &spi1_cs0>;
+ 		#address-cells = <1>;
+@@ -711,6 +715,8 @@
+ 		clocks = <&cru SCLK_SPI2>, <&cru PCLK_SPI2>;
+ 		clock-names = "spiclk", "apb_pclk";
+ 		interrupts = <GIC_SPI 52 IRQ_TYPE_LEVEL_HIGH 0>;
++		dmas = <&dmac_peri 14>, <&dmac_peri 15>;
++		dma-names = "tx", "rx";
+ 		pinctrl-names = "default";
+ 		pinctrl-0 = <&spi2_clk &spi2_tx &spi2_rx &spi2_cs0>;
+ 		#address-cells = <1>;
+@@ -724,6 +730,8 @@
+ 		clocks = <&cru SCLK_SPI4>, <&cru PCLK_SPI4>;
+ 		clock-names = "spiclk", "apb_pclk";
+ 		interrupts = <GIC_SPI 67 IRQ_TYPE_LEVEL_HIGH 0>;
++		dmas = <&dmac_peri 18>, <&dmac_peri 19>;
++		dma-names = "tx", "rx";
+ 		pinctrl-names = "default";
+ 		pinctrl-0 = <&spi4_clk &spi4_tx &spi4_rx &spi4_cs0>;
+ 		#address-cells = <1>;
+@@ -737,6 +745,8 @@
+ 		clocks = <&cru SCLK_SPI5>, <&cru PCLK_SPI5>;
+ 		clock-names = "spiclk", "apb_pclk";
+ 		interrupts = <GIC_SPI 132 IRQ_TYPE_LEVEL_HIGH 0>;
++		dmas = <&dmac_bus 8>, <&dmac_bus 9>;
++		dma-names = "tx", "rx";
+ 		pinctrl-names = "default";
+ 		pinctrl-0 = <&spi5_clk &spi5_tx &spi5_rx &spi5_cs0>;
+ 		power-domains = <&power RK3399_PD_SDIOAUDIO>;

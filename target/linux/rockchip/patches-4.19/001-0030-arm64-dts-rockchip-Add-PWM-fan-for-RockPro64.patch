@@ -1,0 +1,58 @@
+From 5882d65c169152178e6fb2fa2e5e3a72fcb08248 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Andrius=20=C5=A0tikonas?= <andrius@stikonas.eu>
+Date: Wed, 24 Jul 2019 20:17:15 +0100
+Subject: arm64: dts: rockchip: Add PWM fan for RockPro64
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+RockPro64 has a dedicated circuit for driving a 12V fan from PWM1.
+
+At the moment this makes fan spin at full speed. fancontrol can be used
+to control fan speed. E.g. the following config file works well:
+
+INTERVAL=10
+DEVPATH=hwmon0=devices/platform/pwm-fan
+DEVNAME=hwmon0=pwmfan
+FCTEMPS=hwmon0/device/pwm1=../thermal/thermal_zone0/temp
+MINTEMP=hwmon0/device/pwm1=40
+MAXTEMP=hwmon0/device/pwm1=60
+MINSTART=hwmon0/device/pwm1=100
+MINSTOP=hwmon0/device/pwm1=70
+
+In the future it would be nice to define trip points in dts file,
+so that kernel could adjust fan speed itself.
+
+Signed-off-by: Andrius Štikonas <andrius@stikonas.eu>
+Signed-off-by: Heiko Stuebner <heiko@sntech.de>
+---
+ arch/arm64/boot/dts/rockchip/rk3399-rockpro64.dts | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+--- a/arch/arm64/boot/dts/rockchip/rk3399-rockpro64.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3399-rockpro64.dts
+@@ -58,6 +58,13 @@
+ 		};
+ 	};
+ 
++	fan: pwm-fan {
++		compatible = "pwm-fan";
++		#cooling-cells = <2>;
++		fan-supply = <&vcc12v_dcin>;
++		pwms = <&pwm1 0 50000 0>;
++	};
++
+ 	sdio_pwrseq: sdio-pwrseq {
+ 		compatible = "mmc-pwrseq-simple";
+ 		clocks = <&rk808 1>;
+@@ -594,6 +601,10 @@
+ 	status = "okay";
+ };
+ 
++&pwm1 {
++	status = "okay";
++};
++
+ &pwm2 {
+ 	status = "okay";
+ };

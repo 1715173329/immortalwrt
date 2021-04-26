@@ -1,0 +1,27 @@
+From fb8b7460c9950001b923da446f393c452d0ccf09 Mon Sep 17 00:00:00 2001
+From: Christoph Muellner <christoph.muellner@theobroma-systems.com>
+Date: Fri, 22 Mar 2019 12:34:52 +0100
+Subject: arm64: dts: rockchip: Define drive-impedance-ohm for RK3399's
+ emmc-phy.
+
+A previous patch introduced the property 'drive-impedance-ohm'
+for the RK3399's emmc phy node. This patch sets this value
+explicitly to the default value of 50 Ohm.
+
+Signed-off-by: Christoph Muellner <christoph.muellner@theobroma-systems.com>
+Signed-off-by: Philipp Tomsich <philipp.tomsich@theobroma-systems.com>
+Signed-off-by: Heiko Stuebner <heiko@sntech.de>
+---
+ arch/arm64/boot/dts/rockchip/rk3399.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
+
+--- a/arch/arm64/boot/dts/rockchip/rk3399.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3399.dtsi
+@@ -1448,6 +1448,7 @@
+ 			clock-names = "refclk";
+ 			#phy-cells = <1>;
+ 			resets = <&cru SRST_PCIEPHY>;
++			drive-impedance-ohm = <50>;
+ 			reset-names = "phy";
+ 			status = "disabled";
+ 		};

@@ -1,0 +1,132 @@
+From cdd46460fe278e04d8ee665d975aa2962036838f Mon Sep 17 00:00:00 2001
+From: Viresh Kumar <viresh.kumar@linaro.org>
+Date: Fri, 16 Nov 2018 15:34:32 +0530
+Subject: arm64: dts: rockchip: Add all CPUs in cooling maps
+
+Each CPU can (and does) participate in cooling down the system but the
+DT only captures a handful of them, normally CPU0, in the cooling maps.
+Things work by chance currently as under normal circumstances its the
+first CPU of each cluster which is used by the operating systems to
+probe the cooling devices. But as soon as this CPU ordering changes and
+any other CPU is used to bring up the cooling device, we will start
+seeing failures.
+
+Also the DT is rather incomplete when we list only one CPU in the
+cooling maps, as the hardware doesn't have any such limitations.
+
+Update cooling maps to include all devices affected by individual trip
+points.
+
+Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+Signed-off-by: Heiko Stuebner <heiko@sntech.de>
+---
+ arch/arm64/boot/dts/rockchip/rk3328.dtsi          |  5 ++++-
+ arch/arm64/boot/dts/rockchip/rk3368.dtsi          | 15 ++++++++++++---
+ arch/arm64/boot/dts/rockchip/rk3399-gru-kevin.dts |  8 ++++++--
+ arch/arm64/boot/dts/rockchip/rk3399.dtsi          | 12 +++++++++---
+ 4 files changed, 31 insertions(+), 9 deletions(-)
+
+--- a/arch/arm64/boot/dts/rockchip/rk3328.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3328.dtsi
+@@ -469,7 +469,10 @@
+ 			cooling-maps {
+ 				map0 {
+ 					trip = <&target>;
+-					cooling-device = <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++					cooling-device = <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
++							 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
++							 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
++							 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
+ 					contribution = <4096>;
+ 				};
+ 			};
+--- a/arch/arm64/boot/dts/rockchip/rk3368.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3368.dtsi
+@@ -426,12 +426,18 @@
+ 				map0 {
+ 					trip = <&cpu_alert0>;
+ 					cooling-device =
+-					<&cpu_b0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++					<&cpu_b0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
++					<&cpu_b1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
++					<&cpu_b2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
++					<&cpu_b3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
+ 				};
+ 				map1 {
+ 					trip = <&cpu_alert1>;
+ 					cooling-device =
+-					<&cpu_l0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++					<&cpu_l0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
++					<&cpu_l1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
++					<&cpu_l2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
++					<&cpu_l3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
+ 				};
+ 			};
+ 		};
+@@ -459,7 +465,10 @@
+ 				map0 {
+ 					trip = <&gpu_alert0>;
+ 					cooling-device =
+-					<&cpu_b0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++					<&cpu_b0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
++					<&cpu_b1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
++					<&cpu_b2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
++					<&cpu_b3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
+ 				};
+ 			};
+ 		};
+--- a/arch/arm64/boot/dts/rockchip/rk3399-gru-kevin.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3399-gru-kevin.dts
+@@ -118,13 +118,17 @@
+ 			map0 {
+ 				trip = <&ppvar_bigcpu_alert>;
+ 				cooling-device =
+-					<&cpu_l0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++					<&cpu_l0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
++					<&cpu_l1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
++					<&cpu_l2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
++					<&cpu_l3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
+ 				contribution = <4096>;
+ 			};
+ 			map1 {
+ 				trip = <&ppvar_bigcpu_alert>;
+ 				cooling-device =
+-					<&cpu_b0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++					<&cpu_b0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
++					<&cpu_b1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
+ 				contribution = <1024>;
+ 			};
+ 		};
+--- a/arch/arm64/boot/dts/rockchip/rk3399.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3399.dtsi
+@@ -784,13 +784,18 @@
+ 				map0 {
+ 					trip = <&cpu_alert0>;
+ 					cooling-device =
+-						<&cpu_b0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++						<&cpu_b0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
++						<&cpu_b1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
+ 				};
+ 				map1 {
+ 					trip = <&cpu_alert1>;
+ 					cooling-device =
+ 						<&cpu_l0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+-						<&cpu_b0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++						<&cpu_l1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
++						<&cpu_l2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
++						<&cpu_l3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
++						<&cpu_b0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
++						<&cpu_b1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
+ 				};
+ 			};
+ 		};
+@@ -818,7 +823,8 @@
+ 				map0 {
+ 					trip = <&gpu_alert0>;
+ 					cooling-device =
+-						<&cpu_b0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++						<&cpu_b0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
++						<&cpu_b1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
+ 				};
+ 			};
+ 		};

@@ -1,0 +1,30 @@
+From f7cb866a96868771504bbb0d5e5ff79ab90b4abb Mon Sep 17 00:00:00 2001
+From: Oskari Lemmela <oskari@lemmela.net>
+Date: Sat, 1 Dec 2018 12:08:17 +0200
+Subject: arm64: dts: rockchip: enable hdmi output on rk3399-rockpro64
+
+The rockpro64 does have hdmi support, so add the necessary
+devicetree node to enable it.
+
+Signed-off-by: Oskari Lemmela <oskari@lemmela.net>
+Signed-off-by: Heiko Stuebner <heiko@sntech.de>
+---
+ arch/arm64/boot/dts/rockchip/rk3399-rockpro64.dts | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+--- a/arch/arm64/boot/dts/rockchip/rk3399-rockpro64.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3399-rockpro64.dts
+@@ -205,6 +205,13 @@
+ 	status = "okay";
+ };
+ 
++&hdmi {
++	ddc-i2c-bus = <&i2c3>;
++	pinctrl-names = "default";
++	pinctrl-0 = <&hdmi_cec>;
++	status = "okay";
++};
++
+ &i2c0 {
+ 	clock-frequency = <400000>;
+ 	i2c-scl-rising-time-ns = <168>;
