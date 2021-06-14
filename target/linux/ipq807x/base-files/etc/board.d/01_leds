@@ -1,0 +1,19 @@
+
+. /lib/functions/leds.sh
+. /lib/functions/uci-defaults.sh
+
+board=$(board_name)
+
+board_config_update
+
+case $board in
+redmi,ax6|\
+xiaomi,ax3600|\
+xiaomi,ax9000)
+	ucidef_set_led_netdev "wan" "WAN" "blue:network" "eth0"
+	;;
+esac
+
+board_config_flush
+
+exit 0
