@@ -2,7 +2,7 @@ src-git packages https://github.com/immortalwrt/packages.git
 src-git luci https://github.com/immortalwrt/luci.git
 src-git routing https://github.com/openwrt-routing/packages.git
 src-git telephony https://github.com/openwrt/telephony.git
-src-git nss_packages https://github.com/robimarko/nss-packages.git
+src-git nss_packages https://github.com/1715173329/nss-packages.git;nss-crypto
 #src-git video https://github.com/openwrt/video.git
 #src-git targets https://github.com/openwrt/targets.git
 #src-git oldpackages http://git.openwrt.org/packages.git
