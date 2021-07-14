@@ -23,7 +23,7 @@ define KernelPackage/shortcut-fe
   SECTION:=kernel
   CATEGORY:=Kernel modules
   SUBMENU:=Network Support
-  DEPENDS:=
+  DEPENDS:=@!LINUX_5_14
   TITLE:=Kernel driver for SFE
   FILES:= \
 	   $(PKG_BUILD_DIR)/shortcut-fe.ko \
